@@ -1,0 +1,10 @@
+{{ define "main" }}
+<article class="section reveal" style="--reveal-duration: 820ms;">
+  <div class="container">
+    <h1>{{ .Title }}</h1>
+    <p class="muted">{{ .Date.Format "Jan 2, 2006" }}</p>
+    <div class="prose">{{ .Content }}</div>
+    <p><a href="/blog/">← Back to Blog</a></p>
+  </div>
+</article>
+{{ end }}

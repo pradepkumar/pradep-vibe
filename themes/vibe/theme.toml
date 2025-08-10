@@ -1,0 +1,5 @@
+name = "vibe"
+license = "MIT"
+licenselink = "https://opensource.org/licenses/MIT"
+description = "Personal site with hero, sections, blog, and dark mode"
+min_version = "0.118.0"

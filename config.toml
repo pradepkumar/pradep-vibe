@@ -1,0 +1,128 @@
+baseURL = "/"
+languageCode = "en-us"
+title = "Pradep Kumar"
+theme = "vibe"
+
+defaultContentLanguage = "en"
+
+disableKinds = ["taxonomy", "term"]
+
+[menu]
+  [[menu.main]]
+  name = "About"
+  url = "/#about"
+  weight = 10
+
+  [[menu.main]]
+  name = "Experience"
+  url = "/#experience"
+  weight = 20
+
+  [[menu.main]]
+  name = "Education"
+  url = "/#education"
+  weight = 30
+
+  [[menu.main]]
+  name = "Blog"
+  url = "/blog/"
+  weight = 40
+
+[params]
+  enableDarkMode = true
+
+  [params.hero]
+    title = "Hi, I'm Pradep"
+    subtitle = "Engineer • Builder • Blogger"
+    image = "images/hero.svg"
+    ctaText = "Read the blog"
+    ctaLink = "/blog/"
+
+    name = "Pradep."
+    headline = "I like to learn new things"
+    lead = "Full Stack Web Developer who likes gaming with friends. தமிழ் மீது தீராக் காதல் கொண்டவன்."
+
+    [[params.hero.social]]
+      name = "github"
+      url = "https://github.com/your-username"
+
+    [[params.hero.social]]
+      name = "twitter"
+      url = "https://twitter.com/your-handle"
+
+    [[params.hero.social]]
+      name = "instagram"
+      url = "https://instagram.com/your-handle"
+
+  [params.about]
+    content = """
+I’m a software engineer who loves building performant systems and writing about engineering and productivity. This site showcases my background, work experience, education, and a blog where I’ll be publishing articles (migrating from WordPress soon!).
+"""
+
+  [[params.experience]]
+    role = "Senior Software Engineer"
+    company = "FactSet"
+    period = "Feb 2014 – Present"
+    url = "https://www.factset.com/"
+    location = "Boston, MA"
+    details = [
+      "Lead Developer in the News team, part of the Research Group which is responsible for building high value web applications within FactSet.",
+      "Architected and Implemented FactSet’s Next Gen News offering using the VueJS framework and TypeScript.",
+      "Led a team of 3 engineers in developing FactSet’s Streaming News API offering which is used by internal and external clients worldwide.",
+      "Built a suite of scalable web applications including Today’s Top News which is the home page for FactSet clients and receives millions of requests daily.",
+      "Designed and developed web applications using the .NET framework and worked full stack with ASP, C# and SQL Server DB.",
+      "Developed high traffic applications using AngularJS, RESTful APIs and Express backend which was the base for FactSet’s Next Gen offerings."
+    ]
+
+  [[params.experience]]
+    role = "Software Development Engineer Intern"
+    company = "Microsoft"
+    period = "June 2013 - Aug 2013"
+    url = "https://www.microsoft.com/"
+    location = "Cambridge, MA"
+    details = [
+      "Designed, coded and published a Windows 8.1 app called Rememory as part of a team of five people.",
+      "Structured the app’s architecture using the MVVM pattern and built it from scratch.",
+      "Followed the agile development process and worked under short sprints with big deliverables.",
+      "Coded several modules of the app including Maps and Gestures in C# and XAML."
+    ]
+
+  [[params.experience]]
+    role = "Software Engineering Coop"
+    company = "Intuit"
+    period = "July 2012 - Dec 2012"
+    url = "https://www.intuit.com/"
+    location = "San Diego, CA"
+    details = [
+      "Coded several enhancements in the Core C++ tax engine that drives TurboTax.",
+      "Enhanced the existing Ruby test framework which scrutinized the internal tools.",
+      "Worked with different types of XML used internally and coded XSL transformations for internal and external clients"
+    ]
+
+  [[params.experience]]
+    role = "Assistant Systems Engineer, Team Lead"
+    company = "Tata Consultancy Services"
+    period = "Sep 2009 - Aug 2011"
+    url = "https://www.tcs.com/"
+    location = "Chennai, India"
+    details = [
+      "Lead a Quality Assurance Testing Team in the Retail Domain for the client Home Depot.",
+      "Framed scenarios for the requirements given and devised test cases for the scenarios framed.",
+      "Performed System and Regression Testing and fixed bugs in Action Script and Flex Code."
+    ]
+
+  [[params.education]]
+    degree = "Master of Science - Computer Science"
+    institution = "Northeastern University"
+    period = "2011 - 2013"
+    details = [
+      "Related Courses: Artificial Intelligence, Algorithms, Web Development, Parallel Data Processing using Map Reduce, Machine Learning"
+    ]
+
+  [[params.education]]
+    degree = "Bachelor of Engineering - Computer Science"
+    institution = "College of Engineering, Guindy - Anna University"
+    period = "2005 - 2009"
+    details = [
+      "Related Courses: Operating Systems, Database Management, Data Warehousing and Data Mining, Grid Computing, Object Oriented Analysis and Design, Distributed Systems."
+    ]

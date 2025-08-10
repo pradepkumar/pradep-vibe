@@ -1,0 +1,17 @@
+{{ define "main" }}
+<section class="section reveal" style="--reveal-duration: 820ms;">
+  <div class="container">
+    <h1>Blog</h1>
+    <div class="post-list">
+      {{ range .Pages.ByDate.Reverse }}
+        <article class="post-item reveal" style="--reveal-delay: 160ms; --reveal-duration: 820ms;">
+          <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+          <p class="muted">{{ .Date.Format "Jan 2, 2006" }}</p>
+          {{ with .Params.description }}<p>{{ . }}</p>{{ else }}<p>{{ .Summary }}</p>{{ end }}
+          <a class="read-more" href="{{ .RelPermalink }}">Read more →</a>
+        </article>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}

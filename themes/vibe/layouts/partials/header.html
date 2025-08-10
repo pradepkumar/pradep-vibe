@@ -1,0 +1,55 @@
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand" aria-label="Site brand">
+      <img class="brand-mark" src="/images/logo.svg" alt="logo" width="28" height="28" />
+      <span class="brand-text" aria-hidden="false">
+        <span class="brand-name brand-en">{{ .Site.Title }}</span>
+        <span class="brand-name brand-ta">பிரதீப் குமார்</span>
+      </span>
+    </div>
+
+    <div class="spacer"></div>
+
+    <a class="home-link" href="/" aria-label="Home">
+      <span class="material-symbols-rounded icon">home</span>
+    </a>
+
+    <nav class="nav">
+      <ul>
+        {{ $curr := . }}
+        {{ range .Site.Menus.main }}
+          {{ $isActive := false }}
+          {{ if not $curr.IsHome }}
+            {{ if strings.HasPrefix $curr.RelPermalink .URL }}{{ $isActive = true }}{{ end }}
+          {{ end }}
+          <li>
+            <a href="{{ .URL }}" class="{{ if $isActive }}active{{ end }}">{{ .Name }}</a>
+          </li>
+        {{ end }}
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle theme">
+        <span class="material-symbols-rounded icon icon-sun" aria-hidden="true">light_mode</span>
+        <span class="material-symbols-rounded icon icon-moon" aria-hidden="true">dark_mode</span>
+      </button>
+      <button id="menu-toggle" class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span class="material-symbols-rounded icon">menu</span>
+      </button>
+    </div>
+  </div>
+
+  <nav id="mobile-menu" class="mobile-menu" aria-hidden="true">
+    <ul>
+      {{ $curr2 := . }}
+      {{ range .Site.Menus.main }}
+        {{ $isActive2 := false }}
+        {{ if not $curr2.IsHome }}
+          {{ if strings.HasPrefix $curr2.RelPermalink .URL }}{{ $isActive2 = true }}{{ end }}
+        {{ end }}
+        <li><a href="{{ .URL }}" class="{{ if $isActive2 }}active{{ end }}">{{ .Name }}</a></li>
+      {{ end }}
+    </ul>
+  </nav>
+</header>
