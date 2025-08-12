@@ -318,11 +318,19 @@ html[data-theme='dark'] .social-btn img { filter: invert(1) brightness(1.2); }
 .comment-content p { margin: 0 0 10px; }
 
 /* Pagination */
-.pagination { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 24px; }
+.pagination { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 24px; flex-wrap: nowrap; }
 .page-link { display: inline-flex; align-items: center; justify-content: center; min-width: 34px; height: 34px; padding: 0 10px; border: 1px solid var(--border); border-radius: 8px; color: var(--fg); text-decoration: none; background: var(--card); }
 .page-link:hover { border-color: var(--accent); }
 .page-link.current { background: color-mix(in oklab, var(--card) 90%, var(--bg)); border-color: var(--accent); font-weight: 700; }
-.page-link.disabled { opacity: 0.5; pointer-events: none; } 
+.page-link.disabled { opacity: 0.5; pointer-events: none; }
+.page-ellipsis { opacity: 0.6; }
+
+.pagination--mobile { display: flex; }
+.pagination--desktop { display: none; }
+@media (min-width: 960px) {
+  .pagination--mobile { display: none; }
+  .pagination--desktop { display: flex; }
+}
 
 /* Page titles */
 .page-title { text-align: center; font-size: 34px; margin: 0 0 18px; } 
