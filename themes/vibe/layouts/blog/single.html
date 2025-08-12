@@ -1,10 +1,101 @@
 {{ define "main" }}
-<article class="section reveal" style="--reveal-duration: 820ms;">
+<section class="section reveal" style="--reveal-duration: 820ms;">
   <div class="container">
-    <h1>{{ .Title }}</h1>
-    <p class="muted">{{ .Date.Format "Jan 2, 2006" }}</p>
-    <div class="prose">{{ .Content }}</div>
-    <p><a href="/blog/">← Back to Blog</a></p>
+    <div class="post-layout">
+      <header class="post-header">
+        <h1 class="post-title">{{ .Title }}</h1>
+        <p class="post-meta muted">
+          <span class="meta-item"><span class="material-symbols-rounded icon" aria-hidden="true">person</span> {{ with .Params.author }}{{ . }}{{ else }}Pradep{{ end }}</span>
+          <span class="meta-sep">•</span>
+          <span class="meta-item"><span class="material-symbols-rounded icon" aria-hidden="true">calendar_today</span> {{ .Date.Format "Jan 2, 2006" }}</span>
+        </p>
+      </header>
+
+      <article class="post-main prose">
+        {{ .Content }}
+
+        {{/* Load archived comments from content/blog/comments-archive/<basename>-comments.json */}}
+        {{ $base := .File.BaseFileName }}
+        {{ $jsonPath := printf "content/blog/comments-archive/%s-comments.json" $base }}
+        {{ if fileExists $jsonPath }}
+          {{ $raw := readFile $jsonPath }}
+          {{ $parsed := $raw | unmarshal }}
+          {{ $comments := $parsed }}
+          {{ if and (not (reflect.IsSlice $parsed)) (isset $parsed "comments") }}
+            {{ $comments = index $parsed "comments" }}
+          {{ end }}
+          {{ if gt (len $comments) 0 }}
+            <section id="comments" class="comments">
+              <div class="comments-card" data-collapsible>
+                <div class="comments-card-header">
+                  <h2 class="comments-title"><span class="material-symbols-rounded icon" aria-hidden="true">forum</span> Comments ({{ len $comments }})</h2>
+                  <button id="comments-toggle" class="comments-toggle" aria-controls="comments-body" aria-expanded="true" title="Collapse comments">
+                    <span class="material-symbols-rounded icon">unfold_less</span>
+                  </button>
+                </div>
+                <div id="comments-body" class="comments-body">
+                  <ol class="comment-list">
+                    {{ range $comments }}
+                      {{ $author := or .author "Anonymous" }}
+                      {{ $date := or .created_at .date }}
+                      <li class="comment-item comment-card">
+                        <div class="comment-header">
+                          <div class="comment-author-wrap">
+                            {{ if .url }}
+                              <a class="link-subtle" href="{{ .url }}" target="_blank" rel="nofollow noopener">{{ $author }}</a>
+                            {{ else if .email }}
+                              <a class="link-subtle" href="mailto:{{ .email }}">{{ $author }}</a>
+                            {{ else }}
+                              <span class="comment-author">{{ $author }}</span>
+                            {{ end }}
+                          </div>
+                          <div class="comment-date">
+                            {{ with $date }}{{ (time .).Format "Jan 2, 2006 at 3:04 PM" }}{{ end }}
+                          </div>
+                        </div>
+                        <div class="comment-content">
+                          {{ with .content }}{{ . | markdownify }}{{ end }}
+                        </div>
+                      </li>
+                    {{ end }}
+                  </ol>
+                </div>
+              </div>
+            </section>
+          {{ end }}
+        {{ end }}
+
+        <p><a href="/blog/" class="link-subtle">← Back to Blog</a></p>
+      </article>
+
+      <aside class="post-sidebar">
+        <div class="sidebar-card">
+          <h3 class="sidebar-title">Post Info</h3>
+          <div class="sidebar-section">
+            <div class="sidebar-row"><span class="material-symbols-rounded icon" aria-hidden="true">person</span><span class="sidebar-value">{{ with .Params.author }}{{ . }}{{ else }}Pradep{{ end }}</span></div>
+          </div>
+          <div class="sidebar-section">
+            <div class="sidebar-row"><span class="material-symbols-rounded icon" aria-hidden="true">calendar_today</span><span class="sidebar-value">{{ .Date.Format "Jan 2, 2006" }}</span></div>
+          </div>
+          {{ with .Params.categories }}
+            <div class="sidebar-section">
+              <div class="sidebar-label"><span class="material-symbols-rounded icon" aria-hidden="true">category</span> Categories</div>
+              <div class="chip-list">
+                {{ range . }}<span class="chip">{{ . }}</span>{{ end }}
+              </div>
+            </div>
+          {{ end }}
+          {{ with .Params.tags }}
+            <div class="sidebar-section">
+              <div class="sidebar-label"><span class="material-symbols-rounded icon" aria-hidden="true">sell</span> Tags</div>
+              <div class="chip-list">
+                {{ range . }}<span class="chip">#{{ . }}</span>{{ end }}
+              </div>
+            </div>
+          {{ end }}
+        </div>
+      </aside>
+    </div>
   </div>
-</article>
+</section>
 {{ end }}

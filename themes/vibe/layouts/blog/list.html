@@ -1,17 +1,56 @@
 {{ define "main" }}
 <section class="section reveal" style="--reveal-duration: 820ms;">
   <div class="container">
-    <h1>Blog</h1>
-    <div class="post-list">
-      {{ range .Pages.ByDate.Reverse }}
-        <article class="post-item reveal" style="--reveal-delay: 160ms; --reveal-duration: 820ms;">
-          <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
-          <p class="muted">{{ .Date.Format "Jan 2, 2006" }}</p>
-          {{ with .Params.description }}<p>{{ . }}</p>{{ else }}<p>{{ .Summary }}</p>{{ end }}
-          <a class="read-more" href="{{ .RelPermalink }}">Read more →</a>
+    <h1 class="page-title">Blogs</h1>
+    {{ $blog := .Site.GetPage "section" "blog" }}
+    {{ $all := $blog.RegularPagesRecursive.ByDate.Reverse }}
+    {{ $paginator := .Paginate $all 6 }}
+
+    <div class="post-grid">
+      {{ range $paginator.Pages }}
+        <article class="post-card reveal" style="--reveal-delay: 160ms; --reveal-duration: 820ms;">
+          <header class="post-card-header">
+            <h3 class="post-card-title"><a class="link-subtle" href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+          </header>
+          <div class="post-card-body">
+            {{ with .Params.description }}
+              <p>{{ . }}</p>
+            {{ else }}
+              <p>{{ .Summary }}</p>
+            {{ end }}
+          </div>
+          <footer class="post-card-footer">
+            <span class="post-date muted">{{ .Date.Format "Jan 2, 2006" }}</span>
+            <a class="btn btn-sm btn-outline read-btn" href="{{ .RelPermalink }}">Read</a>
+          </footer>
         </article>
       {{ end }}
     </div>
+
+    {{ if gt $paginator.TotalPages 1 }}
+      <nav class="pagination" aria-label="Pagination">
+        {{ with $paginator.Prev }}
+          <a class="page-link" href="{{ .URL }}" aria-label="Previous">‹ Prev</a>
+        {{ else }}
+          <span class="page-link disabled" aria-disabled="true">‹ Prev</span>
+        {{ end }}
+
+        {{ range $paginator.Pagers }}
+          {{ $isCurrent := eq .PageNumber $paginator.PageNumber }}
+          {{ if $isCurrent }}
+            <span class="page-link current" aria-current="page">{{ .PageNumber }}</span>
+          {{ else }}
+            <a class="page-link" href="{{ .URL }}">{{ .PageNumber }}</a>
+          {{ end }}
+        {{ end }}
+
+        {{ with $paginator.Next }}
+          <a class="page-link" href="{{ .URL }}" aria-label="Next">Next ›</a>
+        {{ else }}
+          <span class="page-link disabled" aria-disabled="true">Next ›</span>
+        {{ end }}
+      </nav>
+    {{ end }}
   </div>
 </section>
 {{ end }}
