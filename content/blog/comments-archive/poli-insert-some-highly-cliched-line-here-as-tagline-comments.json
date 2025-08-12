@@ -1,0 +1,34 @@
+{
+    "title":  "Poli - [Insert some highly clichéd line here as tagline]",
+    "date":  "2010-01-31T08:28:20Z",
+    "draft":  false,
+    "tags":  [
+                 "comedy",
+                 "director",
+                 "hero",
+                 "Kollywood",
+                 "poli",
+                 "producer",
+                 "tamil",
+                 "tanglish",
+                 "tragedy"
+             ],
+    "comments":  [
+                     {
+                         "author":  "rupesh",
+                         "url":  null,
+                         "email":  "viscom.rupesh@gmail.com",
+                         "created_at":  "2010-02-01T03:24:32Z",
+                         "content":  "later ndra pechukkey yedam illa.!!:P thala pola varuma!",
+                         "source_index":  1
+                     },
+                     {
+                         "author":  "Pradep",
+                         "url":  null,
+                         "email":  "pradepkumar@gmail.com",
+                         "created_at":  "2010-02-01T03:27:43Z",
+                         "content":  "He He . Athayum paakka thaane porom . And ya i wanted to kalachify that \u0027thala pola varuma\u0027 used again in this movie . Aahh forgot .",
+                         "source_index":  2
+                     }
+                 ]
+}

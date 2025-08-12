@@ -1,0 +1,38 @@
+{
+    "title":  "கார்குழலி",
+    "date":  "2020-06-08T01:41:13Z",
+    "draft":  false,
+    "tags":  [
+                 "கார்குழலி",
+                 "சிறுகதை",
+                 "தமிழ்",
+                 "kaarkuzhali",
+                 "story"
+             ],
+    "comments":  [
+                     {
+                         "author":  "Jeyasree R",
+                         "url":  null,
+                         "email":  "jeyashree.rajah@gmail.com",
+                         "created_at":  "2020-06-08T06:26:58Z",
+                         "content":  "Wow! ❤️",
+                         "source_index":  1
+                     },
+                     {
+                         "author":  "panchg",
+                         "url":  null,
+                         "email":  "panchatcharam.r@gmail.com",
+                         "created_at":  "2020-06-08T08:42:02Z",
+                         "content":  "சிறுகதை அருமை.",
+                         "source_index":  2
+                     },
+                     {
+                         "author":  "rkrupeshkumar",
+                         "url":  null,
+                         "email":  "viscom.rupesh@gmail.com",
+                         "created_at":  "2020-06-20T12:05:24Z",
+                         "content":  "க்ளாங்! Super!!",
+                         "source_index":  3
+                     }
+                 ]
+}
