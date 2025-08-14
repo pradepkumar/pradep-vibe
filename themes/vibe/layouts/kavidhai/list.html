@@ -1,0 +1,24 @@
+{{ define "main" }}
+<section class="section reveal" style="--reveal-duration: 820ms;">
+  <div class="container">
+    <h1 class="page-title">Kavidhai</h1>
+
+    <div id="kav-viewport" class="kav-viewport">
+      <div id="kav-stack" class="kav-stack">
+        {{ $section := .Site.GetPage "section" "kavidhai" }}
+        {{ range $section.RegularPages.ByDate.Reverse }}
+          <article class="kav-card" data-card>
+            <header class="kav-card-header" data-toggle>
+              <h3 class="kav-card-title">{{ .Title }}</h3>
+              <span class="kav-card-date muted">{{ .Date.Format "Jan 2, 2006" }}</span>
+            </header>
+            <div class="kav-card-body">
+              <div class="prose">{{ .Content }}</div>
+            </div>
+          </article>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}

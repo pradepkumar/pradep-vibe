@@ -102,6 +102,52 @@
     });
   }
 
+  function initKavidhaiStack() {
+    const viewport = document.getElementById('kav-viewport');
+    const stack = document.getElementById('kav-stack');
+    if (!stack || !viewport) return;
+
+    const cards = Array.from(stack.querySelectorAll('[data-card]'));
+    const isDesktop = () => window.matchMedia('(min-width:701px)').matches;
+
+    cards.forEach(card => {
+      const header = card.querySelector('[data-toggle]');
+      const body = card.querySelector('.kav-card-body');
+      if (!header || !body) return;
+
+      const setOpen = (open) => {
+        card.setAttribute('data-open', String(open));
+        if (isDesktop()) { body.style.maxHeight = 'none'; return; }
+        if (open) {
+          body.style.maxHeight = body.scrollHeight + 'px';
+          // after transition, allow natural height
+          body.addEventListener('transitionend', function onEnd() {
+            body.removeEventListener('transitionend', onEnd);
+            if (card.getAttribute('data-open') === 'true') body.style.maxHeight = 'none';
+          });
+        } else {
+          body.style.maxHeight = '0px';
+        }
+      };
+
+      header.addEventListener('click', () => {
+        const currentlyOpen = card.getAttribute('data-open') === 'true';
+        if (!isDesktop()) {
+          cards.forEach(other => {
+            if (other !== card) {
+              other.setAttribute('data-open', 'false');
+              const ob = other.querySelector('.kav-card-body');
+              if (ob) ob.style.maxHeight = '0px';
+            }
+          });
+        }
+        setOpen(!currentlyOpen);
+      });
+
+      setOpen(false);
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function() {
     const btn = document.getElementById('theme-toggle'); if (btn) btn.addEventListener('click', toggleTheme);
     const menuBtn = document.getElementById('menu-toggle'); const mobileMenu = document.getElementById('mobile-menu');
@@ -111,9 +157,7 @@
         menuBtn.setAttribute('aria-expanded', String(isOpen));
         mobileMenu.setAttribute('aria-hidden', String(!isOpen));
       });
-      mobileMenu.addEventListener('click', function(e) {
-        if (e.target.tagName === 'A') { mobileMenu.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); mobileMenu.setAttribute('aria-hidden', 'true'); }
-      });
+      mobileMenu.addEventListener('click', function(e) { if (e.target.tagName === 'A') { mobileMenu.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); mobileMenu.setAttribute('aria-hidden', 'true'); } });
     }
 
     if (location.hash) setActiveNav(location.hash);
@@ -124,5 +168,6 @@
     initBrandToggle();
     initExperienceTabs();
     initCommentsToggle();
+    initKavidhaiStack();
   });
 })();

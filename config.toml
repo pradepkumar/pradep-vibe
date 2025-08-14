@@ -28,6 +28,11 @@ disableKinds = ["taxonomy", "term"]
   url = "/blog/"
   weight = 40
 
+  [[menu.main]]
+  name = "Kavidhai"
+  url = "/kavidhai/"
+  weight = 50
+
 [params]
   enableDarkMode = true
 
