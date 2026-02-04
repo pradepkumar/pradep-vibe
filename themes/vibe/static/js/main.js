@@ -102,6 +102,84 @@
     });
   }
 
+  function initCarousel() {
+    const carousel = document.querySelector('.carousel-container');
+    if (!carousel) return;
+
+    const slides = carousel.querySelectorAll('.carousel-slide');
+    const indicators = carousel.querySelectorAll('.carousel-indicator');
+    const prevBtn = carousel.querySelector('.carousel-prev');
+    const nextBtn = carousel.querySelector('.carousel-next');
+    
+    let currentSlide = 0;
+    let interval;
+
+    function showSlide(index) {
+      // Remove active class from all slides and indicators
+      slides.forEach(slide => slide.classList.remove('active'));
+      indicators.forEach(indicator => indicator.classList.remove('active'));
+      
+      // Add active class to current slide and indicator
+      slides[index].classList.add('active');
+      indicators[index].classList.add('active');
+      
+      currentSlide = index;
+    }
+
+    function nextSlide() {
+      const next = (currentSlide + 1) % slides.length;
+      showSlide(next);
+    }
+
+    function prevSlide() {
+      const prev = (currentSlide - 1 + slides.length) % slides.length;
+      showSlide(prev);
+    }
+
+    function startAutoPlay() {
+      interval = setInterval(nextSlide, 4000); // Change slide every 4 seconds
+    }
+
+    function stopAutoPlay() {
+      if (interval) {
+        clearInterval(interval);
+        interval = null;
+      }
+    }
+
+    // Event listeners
+    indicators.forEach((indicator, index) => {
+      indicator.addEventListener('click', () => {
+        showSlide(index);
+        stopAutoPlay();
+        startAutoPlay(); // Restart auto-play after manual interaction
+      });
+    });
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        prevSlide();
+        stopAutoPlay();
+        startAutoPlay();
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        nextSlide();
+        stopAutoPlay();
+        startAutoPlay();
+      });
+    }
+
+    // Pause auto-play on hover
+    carousel.addEventListener('mouseenter', stopAutoPlay);
+    carousel.addEventListener('mouseleave', startAutoPlay);
+
+    // Start auto-play
+    startAutoPlay();
+  }
+
   function initKavidhaiStack() {
     const viewport = document.getElementById('kav-viewport');
     const stack = document.getElementById('kav-stack');
@@ -169,5 +247,6 @@
     initExperienceTabs();
     initCommentsToggle();
     initKavidhaiStack();
+    initCarousel();
   });
 })();

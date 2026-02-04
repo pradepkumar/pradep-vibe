@@ -18,8 +18,41 @@
       </div>
       {{ end }}
     </div>
-    <div class="hero-media hero-placeholder reveal" style="--reveal-delay: 220ms; --reveal-duration: 820ms;">
-      <img src="/{{ .Site.Params.hero.image }}" alt="Hero" />
+    <div class="hero-media hero-carousel reveal" style="--reveal-delay: 220ms; --reveal-duration: 820ms;">
+      <div class="carousel-container">
+        <div class="carousel-slide active">
+          <img src="/images/carousel/sample-1.svg" alt="Sample Image 1" />
+        </div>
+        <div class="carousel-slide">
+          <img src="/images/carousel/sample-2.svg" alt="Sample Image 2" />
+        </div>
+        <div class="carousel-slide">
+          <img src="/images/carousel/sample-3.svg" alt="Sample Image 3" />
+        </div>
+        <div class="carousel-slide">
+          <img src="/images/carousel/sample-4.svg" alt="Sample Image 4" />
+        </div>
+        <div class="carousel-slide">
+          <img src="/images/carousel/sample-5.svg" alt="Sample Image 5" />
+        </div>
+        
+        <!-- Carousel indicators -->
+        <div class="carousel-indicators">
+          <button class="carousel-indicator active" data-slide="0"></button>
+          <button class="carousel-indicator" data-slide="1"></button>
+          <button class="carousel-indicator" data-slide="2"></button>
+          <button class="carousel-indicator" data-slide="3"></button>
+          <button class="carousel-indicator" data-slide="4"></button>
+        </div>
+        
+        <!-- Navigation arrows -->
+        <button class="carousel-nav carousel-prev" aria-label="Previous slide">
+          <span class="material-symbols-rounded">chevron_left</span>
+        </button>
+        <button class="carousel-nav carousel-next" aria-label="Next slide">
+          <span class="material-symbols-rounded">chevron_right</span>
+        </button>
+      </div>
     </div>
   </div>
 </section>

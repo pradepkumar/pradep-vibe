@@ -2,68 +2,84 @@
 <section class="section reveal" style="--reveal-duration: 820ms;">
   <div class="container">
     <div class="post-layout">
-      <header class="post-header">
+      {{ $bgFilter := "linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6))" }}
+      {{ $headerImage := "" }}
+      {{ if .Params.header_image }}
+      {{ with .Resources.GetMatch .Params.header_image }}
+      {{ $headerImage = . }}
+      {{ end }}
+      {{ end }}
+
+      <header class="post-header {{ if $headerImage }}post-header-with-image{{ end }}" {{ if $headerImage
+        }}style="{{ (printf " background-image: %s, url('%s');" $bgFilter $headerImage.RelPermalink) | safeCSS }}"{{ end
+        }}>
         <h1 class="post-title">{{ .Title }}</h1>
-        <p class="post-meta muted">
-          <span class="meta-item"><span class="material-symbols-rounded icon" aria-hidden="true">person</span> {{ with .Params.author }}{{ . }}{{ else }}Pradep{{ end }}</span>
+        <p class="post-meta {{ if $headerImage }}meta-light{{ else }}muted{{ end }}">
+          <span class="meta-item"><span class="material-symbols-rounded icon" aria-hidden="true">person</span> {{ with
+            .Params.author }}{{ . }}{{ else }}Pradep{{ end }}</span>
           <span class="meta-sep">•</span>
-          <span class="meta-item"><span class="material-symbols-rounded icon" aria-hidden="true">calendar_today</span> {{ .Date.Format "Jan 2, 2006" }}</span>
+          <span class="meta-item"><span class="material-symbols-rounded icon" aria-hidden="true">calendar_today</span>
+            {{ .Date.Format "Jan 2, 2006" }}</span>
         </p>
       </header>
 
       <article class="post-main prose">
         {{ .Content }}
 
-        {{/* Load archived comments from content/blog/comments-archive/<basename>-comments.json */}}
-        {{ $base := .File.BaseFileName }}
-        {{ $jsonPath := printf "content/blog/comments-archive/%s-comments.json" $base }}
-        {{ if fileExists $jsonPath }}
-          {{ $raw := readFile $jsonPath }}
-          {{ $parsed := $raw | unmarshal }}
-          {{ $comments := $parsed }}
-          {{ if and (not (reflect.IsSlice $parsed)) (isset $parsed "comments") }}
-            {{ $comments = index $parsed "comments" }}
-          {{ end }}
-          {{ if gt (len $comments) 0 }}
-            <section id="comments" class="comments">
-              <div class="comments-card" data-collapsible>
-                <div class="comments-card-header">
-                  <h2 class="comments-title"><span class="material-symbols-rounded icon" aria-hidden="true">forum</span> Comments ({{ len $comments }})</h2>
-                  <button id="comments-toggle" class="comments-toggle" aria-controls="comments-body" aria-expanded="true" title="Collapse comments">
-                    <span class="material-symbols-rounded icon">unfold_less</span>
-                  </button>
-                </div>
-                <div id="comments-body" class="comments-body">
-                  <ol class="comment-list">
-                    {{ range $comments }}
-                      {{ $author := or .author "Anonymous" }}
-                      {{ $date := or .created_at .date }}
-                      <li class="comment-item comment-card">
-                        <div class="comment-header">
-                          <div class="comment-author-wrap">
-                            {{ if .url }}
-                              <a class="link-subtle" href="{{ .url }}" target="_blank" rel="nofollow noopener">{{ $author }}</a>
-                            {{ else if .email }}
-                              <a class="link-subtle" href="mailto:{{ .email }}">{{ $author }}</a>
-                            {{ else }}
-                              <span class="comment-author">{{ $author }}</span>
-                            {{ end }}
-                          </div>
-                          <div class="comment-date">
-                            {{ with $date }}{{ (time .).Format "Jan 2, 2006 at 3:04 PM" }}{{ end }}
-                          </div>
-                        </div>
-                        <div class="comment-content">
-                          {{ with .content }}{{ . | markdownify }}{{ end }}
-                        </div>
-                      </li>
-                    {{ end }}
-                  </ol>
-                </div>
-              </div>
-            </section>
-          {{ end }}
+        {{/* Load comments from local comments.json (Page Bundle) */}}
+        {{ $comments := slice }}
+        {{ with .Resources.Get "comments.json" }}
+        {{ $parsed := .Content | unmarshal }}
+        {{ if $parsed }}
+        {{ $comments = $parsed }}
+        {{ if and (not (reflect.IsSlice $parsed)) (isset $parsed "comments") }}
+        {{ $comments = index $parsed "comments" }}
         {{ end }}
+        {{ end }}
+        {{ end }}
+        {{ if gt (len $comments) 0 }}
+        <section id="comments" class="comments">
+          <div class="comments-card" data-collapsible>
+            <div class="comments-card-header">
+              <h2 class="comments-title"><span class="material-symbols-rounded icon" aria-hidden="true">forum</span>
+                Comments ({{ len $comments }})</h2>
+              <button id="comments-toggle" class="comments-toggle" aria-controls="comments-body" aria-expanded="true"
+                title="Collapse comments">
+                <span class="material-symbols-rounded icon">unfold_less</span>
+              </button>
+            </div>
+            <div id="comments-body" class="comments-body">
+              <ol class="comment-list">
+                {{ range $comments }}
+                {{ $author := or .author "Anonymous" }}
+                {{ $date := or .created_at .date }}
+                <li class="comment-item comment-card">
+                  <div class="comment-header">
+                    <div class="comment-author-wrap">
+                      {{ if .url }}
+                      <a class="link-subtle" href="{{ .url }}" target="_blank" rel="nofollow noopener">{{ $author
+                        }}</a>
+                      {{ else if .email }}
+                      <a class="link-subtle" href="mailto:{{ .email }}">{{ $author }}</a>
+                      {{ else }}
+                      <span class="comment-author">{{ $author }}</span>
+                      {{ end }}
+                    </div>
+                    <div class="comment-date">
+                      {{ with $date }}{{ (time .).Format "Jan 2, 2006 at 3:04 PM" }}{{ end }}
+                    </div>
+                  </div>
+                  <div class="comment-content">
+                    {{ with .content }}{{ . | markdownify }}{{ end }}
+                  </div>
+                </li>
+                {{ end }}
+              </ol>
+            </div>
+          </div>
+        </section>
+        {{ end }}
+
 
         <p><a href="/blog/" class="link-subtle">← Back to Blog</a></p>
       </article>
@@ -72,27 +88,67 @@
         <div class="sidebar-card">
           <h3 class="sidebar-title">Post Info</h3>
           <div class="sidebar-section">
-            <div class="sidebar-row"><span class="material-symbols-rounded icon" aria-hidden="true">person</span><span class="sidebar-value">{{ with .Params.author }}{{ . }}{{ else }}Pradep{{ end }}</span></div>
+            <div class="sidebar-row"><span class="material-symbols-rounded icon" aria-hidden="true">person</span><span
+                class="sidebar-value">{{ with .Params.author }}{{ . }}{{ else }}Pradep{{ end }}</span></div>
           </div>
           <div class="sidebar-section">
-            <div class="sidebar-row"><span class="material-symbols-rounded icon" aria-hidden="true">calendar_today</span><span class="sidebar-value">{{ .Date.Format "Jan 2, 2006" }}</span></div>
+            <div class="sidebar-row"><span class="material-symbols-rounded icon"
+                aria-hidden="true">calendar_today</span><span class="sidebar-value">{{ .Date.Format "Jan 2, 2006"
+                }}</span></div>
           </div>
           {{ with .Params.categories }}
-            <div class="sidebar-section">
-              <div class="sidebar-label"><span class="material-symbols-rounded icon" aria-hidden="true">category</span> Categories</div>
-              <div class="chip-list">
-                {{ range . }}<span class="chip">{{ . }}</span>{{ end }}
-              </div>
+          <div class="sidebar-section">
+            <div class="sidebar-label"><span class="material-symbols-rounded icon" aria-hidden="true">category</span>
+              Categories</div>
+            <div class="chip-list">
+              {{ range . }}<span class="chip">{{ . }}</span>{{ end }}
             </div>
+          </div>
           {{ end }}
           {{ with .Params.tags }}
-            <div class="sidebar-section">
-              <div class="sidebar-label"><span class="material-symbols-rounded icon" aria-hidden="true">sell</span> Tags</div>
-              <div class="chip-list">
-                {{ range . }}<span class="chip">#{{ . }}</span>{{ end }}
-              </div>
+          <div class="sidebar-section">
+            <div class="sidebar-label"><span class="material-symbols-rounded icon" aria-hidden="true">sell</span> Tags
             </div>
+            <div class="chip-list">
+              {{ range . }}<span class="chip">#{{ . }}</span>{{ end }}
+            </div>
+          </div>
           {{ end }}
+        </div>
+
+        {{/* Post Navigation */}}
+        <div class="sidebar-card sidebar-nav-card">
+          <h3 class="sidebar-title">Navigate</h3>
+          <nav class="sidebar-nav">
+            {{ with .NextInSection }}
+            <a href="{{ .RelPermalink }}" class="sidebar-nav-btn" title="Next: {{ .Title }}">
+              <span class="material-symbols-rounded icon" aria-hidden="true">arrow_back</span>
+              <span class="sidebar-nav-label">Prev</span>
+            </a>
+            {{ else }}
+            <span class="sidebar-nav-btn sidebar-nav-disabled">
+              <span class="material-symbols-rounded icon" aria-hidden="true">arrow_back</span>
+              <span class="sidebar-nav-label">Prev</span>
+            </span>
+            {{ end }}
+
+            <a href="/blog/" class="sidebar-nav-btn" title="Back to Posts">
+              <span class="material-symbols-rounded icon" aria-hidden="true">grid_view</span>
+              <span class="sidebar-nav-label">Posts</span>
+            </a>
+
+            {{ with .PrevInSection }}
+            <a href="{{ .RelPermalink }}" class="sidebar-nav-btn" title="Previous: {{ .Title }}">
+              <span class="material-symbols-rounded icon" aria-hidden="true">arrow_forward</span>
+              <span class="sidebar-nav-label">Next</span>
+            </a>
+            {{ else }}
+            <span class="sidebar-nav-btn sidebar-nav-disabled">
+              <span class="material-symbols-rounded icon" aria-hidden="true">arrow_forward</span>
+              <span class="sidebar-nav-label">Next</span>
+            </span>
+            {{ end }}
+          </nav>
         </div>
       </aside>
     </div>
