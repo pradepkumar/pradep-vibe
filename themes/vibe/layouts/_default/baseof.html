@@ -1,38 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script>
-      (function(){
-        try {
-          var storageKey = 'prefers-theme';
-          var theme = localStorage.getItem(storageKey);
-          if (theme !== 'light' && theme !== 'dark') {
-            theme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
-          }
-          document.documentElement.setAttribute('data-theme', theme);
-        } catch (e) {}
-      })();
-    </script>
-    <meta name="color-scheme" content="light dark" />
-    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}</title>
-    <meta name="description" content="{{ .Site.Title }}" />
-    <link rel="stylesheet" href="/css/style.css" />
 
-    <!-- Inter font from rsms.me -->
-    <link rel="preconnect" href="https://rsms.me/">
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script>
+    (function () {
+      try {
+        var storageKey = 'prefers-theme';
+        var theme = localStorage.getItem(storageKey);
+        if (theme !== 'light' && theme !== 'dark') {
+          theme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+        }
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) { }
+    })();
+  </script>
+  <meta name="color-scheme" content="light dark" />
+  <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}</title>
+  <meta name="description" content="{{ .Site.Title }}" />
+  <link rel="stylesheet" href="/css/style.css" />
 
-    <!-- Material Symbols -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:FILL@0..1&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    {{ partial "header.html" . }}
-    <main id="content">{{ block "main" . }}{{ end }}</main>
-    {{ partial "footer.html" . }}
-    <script src="/js/main.js"></script>
-  </body>
+  <!-- Inter font from rsms.me -->
+  <link rel="preconnect" href="https://rsms.me/">
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+
+  <!-- Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:FILL@0..1&display=swap"
+    rel="stylesheet">
+
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+</head>
+
+<body>
+  {{ partial "header.html" . }}
+  <main id="content">{{ block "main" . }}{{ end }}</main>
+  {{ partial "footer.html" . }}
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+
 </html>

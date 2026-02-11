@@ -4,54 +4,38 @@
     <div class="hero-copy reveal" style="--reveal-delay: 140ms; --reveal-duration: 820ms;">
       <p class="kicker">Hi, my name is</p>
       <h1 class="hero-name">{{ with .Site.Params.hero.name }}{{ . }}{{ else }}Your Name{{ end }}</h1>
-      <h2 class="hero-headline">{{ with .Site.Params.hero.headline }}{{ . }}{{ else }}I build things for the web{{ end }}</h2>
-      <p class="hero-lead">{{ with .Site.Params.hero.lead }}{{ . | markdownify }}{{ else }}Add your lead in `params.hero.lead`.{{ end }}</p>
+      <h2 class="hero-headline">{{ with .Site.Params.hero.headline }}{{ . }}{{ else }}I build things for the web{{ end
+        }}</h2>
+      <p class="hero-lead">{{ with .Site.Params.hero.lead }}{{ . | markdownify }}{{ else }}Add your lead in
+        `params.hero.lead`.{{ end }}</p>
 
       {{ with .Site.Params.hero.social }}
       <div class="hero-social reveal" style="--reveal-delay: 260ms; --reveal-duration: 820ms;">
         {{ range . }}
-          {{ $name := .name | lower }}
-          <a class="social-btn" href="{{ .url }}" target="_blank" rel="noopener">
-            <img src="/icons/{{ $name }}.svg" alt="{{ $name }}" width="18" height="18" />
-          </a>
+        {{ $name := .name | lower }}
+        <a class="social-btn" href="{{ .url }}" target="_blank" rel="noopener">
+          <img src="/icons/{{ $name }}.svg" alt="{{ $name }}" width="18" height="18" />
+        </a>
         {{ end }}
       </div>
       {{ end }}
     </div>
     <div class="hero-media hero-carousel reveal" style="--reveal-delay: 220ms; --reveal-duration: 820ms;">
-      <div class="carousel-container">
-        <div class="carousel-slide active">
-          <img src="/images/carousel/sample-1.svg" alt="Sample Image 1" />
+      <div class="swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img src="/images/carousel/carousel_img1.jpg" alt="Sample Image 1" />
+          </div>
+          <div class="swiper-slide">
+            <img src="/images/carousel/carousel_img2.jpg" alt="Sample Image 2" />
+          </div>
+          <div class="swiper-slide">
+            <img src="/images/carousel/carousel_img3.jpg" alt="Sample Image 3" />
+          </div>
+          <div class="swiper-slide">
+            <img src="/images/carousel/carousel_img4.jpg" alt="Sample Image 4" />
+          </div>
         </div>
-        <div class="carousel-slide">
-          <img src="/images/carousel/sample-2.svg" alt="Sample Image 2" />
-        </div>
-        <div class="carousel-slide">
-          <img src="/images/carousel/sample-3.svg" alt="Sample Image 3" />
-        </div>
-        <div class="carousel-slide">
-          <img src="/images/carousel/sample-4.svg" alt="Sample Image 4" />
-        </div>
-        <div class="carousel-slide">
-          <img src="/images/carousel/sample-5.svg" alt="Sample Image 5" />
-        </div>
-        
-        <!-- Carousel indicators -->
-        <div class="carousel-indicators">
-          <button class="carousel-indicator active" data-slide="0"></button>
-          <button class="carousel-indicator" data-slide="1"></button>
-          <button class="carousel-indicator" data-slide="2"></button>
-          <button class="carousel-indicator" data-slide="3"></button>
-          <button class="carousel-indicator" data-slide="4"></button>
-        </div>
-        
-        <!-- Navigation arrows -->
-        <button class="carousel-nav carousel-prev" aria-label="Previous slide">
-          <span class="material-symbols-rounded">chevron_left</span>
-        </button>
-        <button class="carousel-nav carousel-next" aria-label="Next slide">
-          <span class="material-symbols-rounded">chevron_right</span>
-        </button>
       </div>
     </div>
   </div>
@@ -60,7 +44,8 @@
 <section id="about" class="section reveal" style="--reveal-delay: 40ms; --reveal-duration: 820ms;">
   <div class="container">
     <h2>About</h2>
-    <div class="prose">{{ with .Site.Params.about.content }}{{ . | markdownify }}{{ else }}Add your about text in `config.toml` under `[params.about]`.{{ end }}</div>
+    <div class="prose">{{ with .Site.Params.about.content }}{{ . | markdownify }}{{ else }}Add your about text in
+      `config.toml` under `[params.about]`.{{ end }}</div>
   </div>
 </section>
 
@@ -68,37 +53,39 @@
   <div class="container">
     <h2>Experience</h2>
     {{ with .Site.Params.experience }}
-      <div id="experience-tabs" class="tabs-root">
-        <div class="tabs" role="tablist" aria-label="Experience companies">
-          {{ range $index, $e := . }}
-            {{ $tabId := printf "exp-tab-%d" $index }}
-            {{ $panelId := printf "exp-panel-%d" $index }}
-            <button class="tab" role="tab" id="{{ $tabId }}" aria-controls="{{ $panelId }}" aria-selected="false" tabindex="-1">{{ $e.company }}</button>
-          {{ end }}
-        </div>
-        <div class="tab-panels">
-          {{ range $index, $e := . }}
-            {{ $panelId := printf "exp-panel-%d" $index }}
-            {{ $tabId := printf "exp-tab-%d" $index }}
-            <div class="tab-panel" role="tabpanel" id="{{ $panelId }}" aria-labelledby="{{ $tabId }}">
-              <article class="timeline-item">
-                <h3>{{ $e.role }} -  <span class="muted">{{ if $e.url }}<a class="link-subtle" href="{{ $e.url }}" target="_blank" rel="noopener">{{ $e.company }}</a>{{ else }}{{ $e.company }}{{ end }}</span></h3>
-                <p class="period">{{ $e.period }}</p>
-                {{ if $e.location }}
-                  <p class="location"><span class="material-symbols-rounded icon">location_on</span> {{ $e.location }}</p>
-                {{ end }}
-                {{ with $e.details }}
-                  <ul>
-                    {{ range . }}<li>{{ . }}</li>{{ end }}
-                  </ul>
-                {{ end }}
-              </article>
-            </div>
-          {{ end }}
-        </div>
+    <div id="experience-tabs" class="tabs-root">
+      <div class="tabs" role="tablist" aria-label="Experience companies">
+        {{ range $index, $e := . }}
+        {{ $tabId := printf "exp-tab-%d" $index }}
+        {{ $panelId := printf "exp-panel-%d" $index }}
+        <button class="tab" role="tab" id="{{ $tabId }}" aria-controls="{{ $panelId }}" aria-selected="false"
+          tabindex="-1">{{ $e.company }}</button>
+        {{ end }}
       </div>
+      <div class="tab-panels">
+        {{ range $index, $e := . }}
+        {{ $panelId := printf "exp-panel-%d" $index }}
+        {{ $tabId := printf "exp-tab-%d" $index }}
+        <div class="tab-panel" role="tabpanel" id="{{ $panelId }}" aria-labelledby="{{ $tabId }}">
+          <article class="timeline-item">
+            <h3>{{ $e.role }} - <span class="muted">{{ if $e.url }}<a class="link-subtle" href="{{ $e.url }}"
+                  target="_blank" rel="noopener">{{ $e.company }}</a>{{ else }}{{ $e.company }}{{ end }}</span></h3>
+            <p class="period">{{ $e.period }}</p>
+            {{ if $e.location }}
+            <p class="location"><span class="material-symbols-rounded icon">location_on</span> {{ $e.location }}</p>
+            {{ end }}
+            {{ with $e.details }}
+            <ul>
+              {{ range . }}<li>{{ . }}</li>{{ end }}
+            </ul>
+            {{ end }}
+          </article>
+        </div>
+        {{ end }}
+      </div>
+    </div>
     {{ else }}
-      <p>Add experience entries to `params.experience` in `config.toml`.</p>
+    <p>Add experience entries to `params.experience` in `config.toml`.</p>
     {{ end }}
   </div>
 </section>
@@ -107,22 +94,29 @@
   <div class="container">
     <h2>Education</h2>
     {{ with .Site.Params.education }}
-      <div class="cards">
-        {{ range . }}
-          <article class="card reveal" style="--reveal-delay: 220ms; --reveal-duration: 820ms;">
+    <div class="cards">
+      {{ range . }}
+      <article class="card reveal" style="--reveal-delay: 220ms; --reveal-duration: 820ms;">
+        <div class="education-content">
+          {{ with .logo }}
+          <img src="/{{ . }}" alt="University Logo" class="education-logo" width="50" height="50">
+          {{ end }}
+          <div>
             <h3 class="education-degree">{{ .degree }}</h3>
             <p class="muted education-institution">{{ .institution }}</p>
             <p class="period education-period">{{ .period }}</p>
-            {{ with .details }}
-              <ul>
-                {{ range . }}<li>{{ . }}</li>{{ end }}
-              </ul>
-            {{ end }}
-          </article>
+          </div>
+        </div>
+        {{ with .details }}
+        <ul>
+          {{ range . }}<li>{{ . }}</li>{{ end }}
+        </ul>
         {{ end }}
-      </div>
+      </article>
+      {{ end }}
+    </div>
     {{ else }}
-      <p>Add education entries to `params.education` in `config.toml`.</p>
+    <p>Add education entries to `params.education` in `config.toml`.</p>
     {{ end }}
   </div>
 </section>

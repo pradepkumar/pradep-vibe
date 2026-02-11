@@ -120,14 +120,12 @@ I’m a software engineer who loves building performant systems and writing abou
     degree = "Master of Science - Computer Science"
     institution = "Northeastern University"
     period = "2011 - 2013"
-    details = [
-      "Related Courses: Artificial Intelligence, Algorithms, Web Development, Parallel Data Processing using Map Reduce, Machine Learning"
-    ]
+    logo = "images/logos/NEU.png"
+    details = []
 
   [[params.education]]
     degree = "Bachelor of Engineering - Computer Science"
     institution = "College of Engineering, Guindy - Anna University"
     period = "2005 - 2009"
-    details = [
-      "Related Courses: Operating Systems, Database Management, Data Warehousing and Data Mining, Grid Computing, Object Oriented Analysis and Design, Distributed Systems."
-    ]
+    logo = "images/logos/AU.png"
+    details = []
