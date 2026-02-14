@@ -122,6 +122,13 @@ body {
   opacity: 0.95;
 }
 
+.brand-en {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-size: 22px;
+}
+
 .spacer {
   flex: 1 1 auto;
 }
@@ -427,7 +434,7 @@ html[data-theme='dark'] .social-btn img {
 
 .education-content {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 16px;
 }
 
@@ -440,7 +447,11 @@ html[data-theme='dark'] .social-btn img {
   width: 80px;
   height: 80px;
   object-fit: contain;
+  background: #fff;
+  border: 1px solid var(--border);
   border-radius: 8px;
+  padding: 8px;
+  margin-top: 4px;
 }
 
 .education-content .period {

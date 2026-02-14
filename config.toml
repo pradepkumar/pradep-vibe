@@ -49,15 +49,20 @@ disableKinds = ["taxonomy", "term"]
 
     [[params.hero.social]]
       name = "github"
-      url = "https://github.com/your-username"
+      url = "https://github.com/pradepkumar"
 
-    [[params.hero.social]]
-      name = "twitter"
-      url = "https://twitter.com/your-handle"
 
     [[params.hero.social]]
       name = "instagram"
-      url = "https://instagram.com/your-handle"
+      url = "https://instagram.com/_pradepkumar"
+
+    [[params.hero.social]]
+      name = "threads"
+      url = "https://threads.net/@_pradepkumar"
+
+    [[params.hero.social]]
+      name = "letterboxd"
+      url = "https://letterboxd.com/pradepkumar"
 
   [params.about]
     content = """
