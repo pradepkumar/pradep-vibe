@@ -67,13 +67,13 @@
           <div class="comments-card" data-collapsible>
             <div class="comments-card-header">
               <h2 class="comments-title"><span class="material-symbols-rounded icon" aria-hidden="true">forum</span>
-                Comments ({{ len $comments }})</h2>
-              <button id="comments-toggle" class="comments-toggle" aria-controls="comments-body" aria-expanded="true"
-                title="Collapse comments">
-                <span class="material-symbols-rounded icon">unfold_less</span>
+                Archived Comments ({{ len $comments }})</h2>
+              <button id="comments-toggle" class="comments-toggle" aria-controls="comments-body" aria-expanded="false"
+                title="Expand comments">
+                <span class="material-symbols-rounded icon">unfold_more</span>
               </button>
             </div>
-            <div id="comments-body" class="comments-body">
+            <div id="comments-body" class="comments-body" style="display:none">
               <ol class="comment-list">
                 {{ range $comments }}
                 {{ $author := or .author "Anonymous" }}
