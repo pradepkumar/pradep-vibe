@@ -45,6 +45,14 @@
                 data-page-title="{{ $.Page.Title }}"
                 data-theme="light">
               </div>
+              <script>
+                (function(){
+                  var t = localStorage.getItem('prefers-theme');
+                  if (!t) t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                  var el = document.getElementById('cusdis_thread');
+                  if (el) el.dataset.theme = t;
+                })();
+              </script>
               <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
             </div>
           </div>
