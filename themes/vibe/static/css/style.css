@@ -777,6 +777,7 @@ html[data-theme='dark'] .social-btn img {
   white-space: nowrap;
   opacity: 0;
   transform: translateY(6px);
+  font-size: 18px;
 }
 
 /* Hover preview when in default (English) */
@@ -1196,6 +1197,12 @@ html[data-theme='dark'] .social-btn img {
 
 .comments-body {
   padding: 16px;
+}
+
+/* Cusdis iframe — prevent internal scrollbar by letting it grow to full height */
+#cusdis_thread iframe {
+  width: 100% !important;
+  min-height: 420px;
 }
 
 .comment-list {
