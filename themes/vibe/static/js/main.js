@@ -112,6 +112,8 @@
       if (window.CUSDIS) window.CUSDIS.setTheme(theme);
     }
 
+    // Sets data-theme before Cusdis initialises its iframe; window.CUSDIS is not
+    // available yet (script is async), so setTheme() is intentionally skipped here.
     applyToCusdis(getPreferredTheme());
 
     document.addEventListener('themechange', function(e) {
