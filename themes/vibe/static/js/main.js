@@ -15,6 +15,7 @@
     const next = current === 'light' ? 'dark' : 'light';
     localStorage.setItem(storageKey, next);
     applyTheme(next);
+    document.dispatchEvent(new CustomEvent('themechange', { detail: { theme: next } }));
   }
 
   // Apply immediately
@@ -99,6 +100,22 @@
       toggle.title = next ? 'Collapse comments' : 'Expand comments';
       body.style.display = next ? 'block' : 'none';
       toggle.innerHTML = '<span class="material-symbols-rounded icon">' + (next ? 'unfold_less' : 'unfold_more') + '</span>';
+    });
+  }
+
+  function initCusdisTheme() {
+    const el = document.getElementById('cusdis_thread');
+    if (!el) return;
+
+    function applyToCusdis(theme) {
+      el.dataset.theme = theme;
+      if (window.CUSDIS) window.CUSDIS.setTheme(theme);
+    }
+
+    applyToCusdis(getPreferredTheme());
+
+    document.addEventListener('themechange', function(e) {
+      applyToCusdis(e.detail.theme);
     });
   }
 
@@ -189,6 +206,7 @@
     initBrandToggle();
     initExperienceTabs();
     initCommentsToggle();
+    initCusdisTheme();
     initKavidhaiStack();
     initSwiper();
   });
