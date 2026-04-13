@@ -35,6 +35,7 @@ disableKinds = ["taxonomy", "term"]
 
 [params]
   enableDarkMode = true
+  cusdisAppId = "da05d747-41de-45c3-80e7-6b2ca6f209ee"
 
   [params.hero]
     title = "Hi, I'm Pradep"
