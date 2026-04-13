@@ -26,6 +26,31 @@
       <article class="post-main prose">
         {{ .Content }}
 
+        {{/* Cusdis live comments */}}
+        {{ with .Site.Params.cusdisAppId }}
+        <section id="new-comments" class="comments">
+          <div class="comments-card">
+            <div class="comments-card-header">
+              <h2 class="comments-title">
+                <span class="material-symbols-rounded icon" aria-hidden="true">add_comment</span>
+                Leave a Comment
+              </h2>
+            </div>
+            <div class="comments-body">
+              <div id="cusdis_thread"
+                data-host="https://cusdis.com"
+                data-app-id="{{ . }}"
+                data-page-id="{{ $.Page.RelPermalink }}"
+                data-page-url="{{ $.Page.Permalink }}"
+                data-page-title="{{ $.Page.Title }}"
+                data-theme="light">
+              </div>
+              <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+            </div>
+          </div>
+        </section>
+        {{ end }}
+
         {{/* Load comments from local comments.json (Page Bundle) */}}
         {{ $comments := slice }}
         {{ with .Resources.Get "comments.json" }}
